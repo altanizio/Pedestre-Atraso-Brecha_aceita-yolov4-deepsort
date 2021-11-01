@@ -1,3 +1,7 @@
+##########################################
+# Criador: Francisco Altanizio (2021)    #
+##########################################
+
 library(tidyverse)
 dados <- read_csv2('hcm.csv')
 
