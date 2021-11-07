@@ -93,19 +93,7 @@ dados  <-  dados[1:12,]
 write.csv2(atrasos_only,'avDomLuis_atrasos_bruto.csv')
 write.csv2(carros_only,'avDomLuis_veiculos_bruto.csv')
 
-ggplot(dados,aes(x = ymd_hms(tempo_real_cut))) + 
-  geom_line(aes(y = (fluxo_carros), color = 'Fluxo_carros')) +
-  geom_line(aes(y = (fluxo_pedestres), color = 'fluxo_pedestres'))+
-  geom_line(aes(y = (brecha_media), color = 'brecha_media'))+
-  geom_line(aes(y = (atraso_medio), color = 'atraso_medio'))
 
-ggplot(dados,aes(x = ymd_hms(tempo_real_cut))) + 
-  geom_line(aes(y = (brecha_media), color = 'brecha_media'))+
-  geom_line(aes(y = (atraso_medio), color = 'atraso_medio'))
-
-ggplot(dados,aes(x = ymd_hms(tempo_real_cut))) + 
-  geom_line(aes(y = (fluxo_carros), color = 'Fluxo_carros'))+
-  geom_line(aes(y = (atraso_medio), color = 'atraso_medio'))
 
 grafico <- ggplot() + 
   geom_line(data = carros_only, aes(x = ymd_hms(tempo_real),y = (diff), color = 'Brecha'))+
@@ -132,17 +120,6 @@ dados  %>%
   xlab('Tempo') + ggtitle('') + ylab('Headway médio (s) a cada 15 minutos') 
 
 
-descdist(atrasos_only$atraso_trat, boot = 1000)
-fit_gamma <- fitdist(atrasos_only$atraso_trat, "gamma", discrete = F)
-fit_lnorm <- fitdist(atrasos_only$atraso_trat, "lnorm", discrete = F)
-fit_weibull <- fitdist(atrasos_only$atraso_trat, "weibull", discrete = F)
-fit <- fitdist(atrasos_only$atraso_trat, "exp", discrete = F)
-summary(fit)
-plot(fit, histo = TRUE, demp = TRUE)
-denscomp(fit, addlegend=TRUE, demp = TRUE)
-gofstat(list(fit,fit_gamma,fit_lnorm,fit_weibull), discrete = F)
-gofstat(list(fit,fit_gamma,fit_lnorm,fit_weibull), discrete = T)
-denscomp(list(fit,fit_gamma,fit_lnorm,fit_weibull), demp = TRUE)
 
 
 brechas <-  carros_only %>% dplyr::select(tempo = tempo_real, diff)
@@ -215,14 +192,6 @@ length(atrasos_final$atraso)
 atrasos_final %>% write_csv2('avDomLuis_atrasos.csv')
 
 
-descdist(atrasos_final$brecha, boot = 1000)
-fit <- fitdist(atrasos_final$brecha, "exp", discrete = F)
-summary(fit)
-plot(fit, histo = TRUE, demp = TRUE)
-denscomp(fit, addlegend=TRUE, histo = TRUE, demp = TRUE)
-gofstat(fit, discrete = F)
-gofstat(fit, discrete = T)
-
 
 
 fviz_nbclust(atrasos_final %>% dplyr::select(atraso, brecha), kmeans, method = "wss")+
@@ -264,11 +233,4 @@ atrasos_final_cluster %>%
   #theme(legend.title=element_blank())
 #ggsave("graficos/chushes_2_2.png", width = 6, height = 4, dpi=600)
 
-atrasos_final_cluster %>% 
-  group_by(cluster) %>% 
-  summarise(freq = n(), atraso_medio = mean(atraso), brecha_media = mean(brecha)) %>% 
-  mutate(prop = freq/sum(freq)) %>% 
-  mutate_all(~round(.,2)) %>%
-  mutate(prop = scales::label_percent()(prop)) %>% 
-  kableExtra::kable() %>% kableExtra::kable_styling()
-  #DT::datatable()
+
