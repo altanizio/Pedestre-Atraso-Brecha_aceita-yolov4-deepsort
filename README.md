@@ -1,5 +1,5 @@
 # Análise do Atraso e da Brecha aceita dos pedestres
-## [📃Artigo apresentado em congresso - ANPET](https://raw.githubusercontent.com/altanizio/Pedestre-Atraso-Brecha_aceita-yolov4-deepsort/master/artigo/2_164_AC.pdf)
+## [📃Artigo apresentado em congresso - ANPET](https://www.anpet.org.br/anais35/documentos/2021/Tr%C3%A1fego%20Urbano%20e%20Rodovi%C3%A1rio/Tr%C3%A1fego%20Urbano/2_164_AC.pdf)
 ### ⭐Prêmio ANPET de Produção Científica 2021
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Kqat0dcnQ5gOfvARZZtrsh1inDq_i1Hx?usp=sharing)
